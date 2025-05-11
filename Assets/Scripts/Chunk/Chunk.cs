@@ -16,7 +16,7 @@ public class Chunk : MonoBehaviour
     [SerializeField] private float moveSpeed;
     [SerializeField] private float groundCheckDist;
 
-    private void Start()
+    private void Awake()
     {
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
@@ -35,20 +35,25 @@ public class Chunk : MonoBehaviour
         isGrounded = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDist, LayerMask.GetMask("Ground"));
         Debug.DrawLine(transform.position, transform.position - new Vector3(0, groundCheckDist, 0), Color.green);
     }
-    private void OnJump(InputValue iv)
+    public void Jump(InputAction.CallbackContext ctx)
     {
-        jumpHeld = iv.isPressed;
-        Debug.Log(jumpHeld);
+        if (ctx.performed)
+        {
+            jumpHeld = true;
+        }
+        else
+        {
+            jumpHeld = false;
+        }
     }
-    private void OnMove(InputValue iv)
+    public void Move(InputAction.CallbackContext ctx)
     {
-        movementInput = iv.Get<Vector2>();
+        movementInput = ctx.ReadValue<Vector2>();
     }
 
     private void Jump()
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
         rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        //jumpHeld = false;
     }
 }
