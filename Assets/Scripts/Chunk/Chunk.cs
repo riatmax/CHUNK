@@ -8,7 +8,6 @@ public class Chunk : MonoBehaviour
     private Vector2 movementInput;
 
     private bool isGrounded;
-    private bool wasGrounded;
     private bool jumpHeld;
 
     [Header("Chunk Stats")]
