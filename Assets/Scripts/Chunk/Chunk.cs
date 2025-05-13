@@ -9,7 +9,6 @@ public class Chunk : MonoBehaviour
     private Vector2 movementInput;
     private SpriteRenderer sprRend;
 
-    private CinemachineCamera[] camContainer;
     private bool isGrounded;
     private bool jumpHeld;
     private bool facingLeft = false;
@@ -18,13 +17,14 @@ public class Chunk : MonoBehaviour
     [SerializeField] private float jumpForce;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float groundCheckDist;
+    [SerializeField] private float gravity = 1;
 
     private void Awake()
     {
         playerControls = new PlayerControls();
         rb = GetComponent<Rigidbody2D>();
         sprRend = GetComponentInChildren<SpriteRenderer>();
-        camContainer = GetComponentInChildren<CameraContainer>().Cameras;
+        rb.gravityScale = gravity;
     }
     private void FixedUpdate()
     {
@@ -41,15 +41,11 @@ public class Chunk : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position - new Vector3(0, groundCheckDist, 0), Color.green);
         if (facingLeft)
         {
-            sprRend.flipX = true;
-            camContainer[0].Priority = 0;
-            camContainer[1].Priority = 1;
+            sprRend.flipX = true;      
         }
         else
         {
             sprRend.flipX = false;
-            camContainer[1].Priority = 0;
-            camContainer[0].Priority = 1;
         }
     }
     public void Jump(InputAction.CallbackContext ctx)
