@@ -1415,7 +1415,7 @@ MonoBehaviour:
   moveSpeed: 15
   groundCheckDist: 0.6
   gravity: 3
-  maxNumJumps: 0
+  maxNumJumps: 2
 --- !u!114 &1751369820
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class Chunk : MonoBehaviour
     public bool isGrounded;
     private bool facingLeft = false;
 
-    private int currJump;
+    private int currJump = 1;
 
     [Header("Chunk Stats")]
     [SerializeField] private float jumpForce;
@@ -43,6 +43,11 @@ public class Chunk : MonoBehaviour
         {
             sprRend.flipX = false;
         }
+
+        if (isGrounded)
+        {
+            currJump = 0;
+        }
     }
     private void Update()
     {
@@ -50,10 +55,11 @@ public class Chunk : MonoBehaviour
     }
     public void Jump(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed && isGrounded)
+        if (ctx.performed && (isGrounded || (currJump != maxNumJumps)))
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            currJump++;
         }
     }
     public void Move(InputAction.CallbackContext ctx)
