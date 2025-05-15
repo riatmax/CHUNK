@@ -629,6 +629,7 @@ MonoBehaviour:
   lookAheadSpeed: 3
   lookAheadDist: 5
   cameraVertOffset: 2.5
+  fallingCamDist: 7
 --- !u!1 &519640236
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,6 +1415,7 @@ MonoBehaviour:
   moveSpeed: 15
   groundCheckDist: 0.6
   gravity: 3
+  maxNumJumps: 0
 --- !u!114 &1751369820
 MonoBehaviour:
   m_ObjectHideFlags: 0
